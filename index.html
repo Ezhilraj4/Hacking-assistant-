@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Security Terminal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-code"></div>
+
+    <div class="console-container">
+        
+        <div class="panel email-panel">
+            <h2>// CRITICAL ALERTS ($EMAILS)</h2>
+            <div id="alert-output" class="content alerts-content">
+                <p class="alert-item error">[SENDER: SYSTEM_INTEL]</p>
+                <p class="alert-item success">SUBJECT: Core System Initializing...</p>
+                <p class="alert-item error">STATUS: Awaiting Command Input.</p>
+                <p class="alert-item low-p">[SENDER: HR_DEPT] SUBJECT: Training Reminder</p>
+                <p class="alert-item high-p">[SENDER: EXTERNAL_THREAT] SUBJECT: Breach Detected</p>
+            </div>
+        </div>
+
+        <div class="panel analysis-panel">
+            <h2>// AI ANALYSIS OUTPUT</h2>
+            <div id="gemini-output" class="content analysis-content">
+                </div>
+        </div>
+        
+        <div class="input-area">
+            <div class="keyboard">
+                <p class="keyboard-placeholder">// INPUT INTERFACE ONLINE // </p>
+            </div>
+            <div class="terminal-input">
+                <label for="command-input">>_</label>
+                <input type="text" id="command-input" placeholder="Type your security query (e.g., SCAN FIREWALL)..." autofocus>
+                <button id="send-command">EXECUTE</button>
+            </div>
+        </div>
+
+        <div class="panel metrics-panel">
+            <h2>// SYSTEM METRICS & INFO</h2>
+            <div class="content metrics-content">
+                <p>CPU_LOAD: 85%</p>
+                <p>MEM_UTIL: 4.8GB</p>
+                <p class="alert-item success">NETWORK: STABLE</p>
+                <p class="alert-item low-p">LOGGED_USER: [ADMIN]</p>
+                <p class="alert-item high-p">DATE_TIME: <span id="current-time"></span></p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        // Simple JS to update time (for the metric panel)
+        function updateTime() {
+            const timeElement = document.getElementById('current-time');
+            if(timeElement) {
+                timeElement.textContent = new Date().toLocaleTimeString('en-US', { hour12: false });
+            }
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
