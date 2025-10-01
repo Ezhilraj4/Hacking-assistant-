@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +13,7 @@
         <div class="panel globe-panel">
             <h2>// GEOGRAPHIC TRACKING & PROXY</h2>
             <div class="globe-container">
-                <div class="globe-visual"></div>
-            </div>
+                <div class="globe-visual"></div> </div>
             <div class="location-info">
                 <p>CURRENT IP: <span id="current-ip" class="high-p">104.244.42.129</span></p>
                 <p>LOCATION: <span id="current-location" class="high-p">Amsterdam, Netherlands</span></p>
@@ -38,24 +38,47 @@
                 </div>
         </div>
         
-        <div class="panel neural-network-panel">
-            <h2>// NEURAL NETWORK STATUS</h2>
-            <div id="nn-visual" class="nn-visual-container">
-                <div class="nn-node node-a"></div>
-                <div class="nn-node node-b"></div>
-                <div class="nn-node node-c"></div>
-                <div class="nn-node node-d"></div>
-                <div class="nn-line line-1"></div>
-                <div class="nn-line line-2"></div>
-                <div class="nn-line line-3"></div>
-            </div>
-            <div class="content nn-metrics">
-                <p>MODEL: DeepSpectre-v9</p>
-                <p>LATENCY: <span class="success">0.4ms</span></p>
-                <p>STATUS: <span class="high-p">Processing anomalies...</span></p>
+        <div class="panel running-matrix-panel">
+            <h2>// DATA STREAM INGESTION</h2>
+            <div class="matrix-background-anim"></div>
+            <div class="content matrix-overlay-text">
+                <p>INCOMING_FEED: <span class="success">LIVE</span></p>
+                <p>PACKET_LOSS: <span class="low-p">0.01%</span></p>
+                <p>THROUGHPUT: <span class="high-p">~1.2 TB/s</span></p>
+                <p>INTEGRITY: <span class="success">HIGH</span></p>
             </div>
         </div>
-        
+
+        <div class="panel hidden-layer-panel">
+            <h2>// AI COMPUTATION VISUAL</h2>
+            <div class="hidden-layer-visual">
+                <div class="layer-column column-a">
+                    <div class="layer-node"></div>
+                    <div class="layer-node"></div>
+                    <div class="layer-node"></div>
+                </div>
+                <div class="layer-column column-b">
+                    <div class="layer-node"></div>
+                    <div class="layer-node"></div>
+                    <div class="layer-node"></div>
+                    <div class="layer-node"></div>
+                </div>
+                <div class="layer-column column-c">
+                    <div class="layer-node"></div>
+                    <div class="layer-node"></div>
+                    <div class="layer-node"></div>
+                </div>
+                <div class="data-flow flow-1"></div>
+                <div class="data-flow flow-2"></div>
+                <div class="data-flow flow-3"></div>
+            </div>
+            <div class="content nn-metrics">
+                <p>LAYERS: 12 (ACTIVE)</p>
+                <p>EPOCHS: 24,000</p>
+                <p>OPTIMIZER: ADAM-v5</p>
+            </div>
+        </div>
+
         <div class="input-area">
             <div class="keyboard">
                 <p class="keyboard-placeholder">// INPUT INTERFACE ONLINE // </p>
@@ -77,6 +100,21 @@
                 <p class="alert-item high-p">DATE_TIME: <span id="current-time"></span></p>
             </div>
         </div>
+
+        <div class="panel neural-network-panel">
+            <h2>// MODEL STATUS</h2>
+            <div id="nn-visual" class="nn-simple-visual">
+                <div class="nn-node-small"></div>
+                <div class="nn-node-small" style="left: 40%; animation-delay: 0.5s;"></div>
+                <div class="nn-node-small" style="left: 80%; animation-delay: 1s;"></div>
+            </div>
+            <div class="content nn-metrics">
+                <p>MODEL: DeepSpectre-v9</p>
+                <p>LATENCY: <span class="success">0.4ms</span></p>
+                <p>STATUS: <span class="high-p">Processing anomalies...</span></p>
+            </div>
+        </div>
+
     </div>
     
     <script src="script.js"></script>
