@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-code"></div>
-
     <div class="console-container">
         
         <div class="panel globe-panel">
@@ -29,7 +26,10 @@
             <div id="alert-output" class="content alerts-content">
                 <p class="alert-item error">[SENDER: SYSTEM_INTEL]</p>
                 <p class="alert-item success">SUBJECT: Core System Initializing...</p>
-                </div>
+                <p class="alert-item error">STATUS: Awaiting Command Input.</p>
+                <p class="alert-item low-p">[SENDER: HR_DEPT] SUBJECT: Training Reminder</p>
+                <p class="alert-item high-p">[SENDER: EXTERNAL_THREAT] SUBJECT: Breach Detected</p>
+            </div>
         </div>
 
         <div class="panel analysis-panel">
@@ -52,13 +52,16 @@
         <div class="panel metrics-panel">
             <h2>// SYSTEM METRICS & INFO</h2>
             <div class="content metrics-content">
-                </div>
+                <p>CPU_LOAD: 85%</p>
+                <p>MEM_UTIL: 4.8GB</p>
+                <p class="alert-item success">NETWORK: STABLE</p>
+                <p class="alert-item low-p">LOGGED_USER: [ADMIN]</p>
+                <p class="alert-item high-p">DATE_TIME: <span id="current-time"></span></p>
+            </div>
         </div>
     </div>
     
     <script src="script.js"></script>
-    <script>
-        // ... (existing updateTime script) ...
-    </script>
+    
 </body>
 </html>
