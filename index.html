@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,15 +12,24 @@
 
     <div class="console-container">
         
+        <div class="panel globe-panel">
+            <h2>// GEOGRAPHIC TRACKING & PROXY</h2>
+            <div class="globe-container">
+                <div class="globe-visual"></div>
+            </div>
+            <div class="location-info">
+                <p>CURRENT IP: <span id="current-ip" class="high-p">104.244.42.129</span></p>
+                <p>LOCATION: <span id="current-location" class="high-p">Amsterdam, Netherlands</span></p>
+                <button id="change-proxy">CHANGE PROXY LOCATION</button>
+            </div>
+        </div>
+
         <div class="panel email-panel">
             <h2>// CRITICAL ALERTS ($EMAILS)</h2>
             <div id="alert-output" class="content alerts-content">
                 <p class="alert-item error">[SENDER: SYSTEM_INTEL]</p>
                 <p class="alert-item success">SUBJECT: Core System Initializing...</p>
-                <p class="alert-item error">STATUS: Awaiting Command Input.</p>
-                <p class="alert-item low-p">[SENDER: HR_DEPT] SUBJECT: Training Reminder</p>
-                <p class="alert-item high-p">[SENDER: EXTERNAL_THREAT] SUBJECT: Breach Detected</p>
-            </div>
+                </div>
         </div>
 
         <div class="panel analysis-panel">
@@ -42,26 +52,13 @@
         <div class="panel metrics-panel">
             <h2>// SYSTEM METRICS & INFO</h2>
             <div class="content metrics-content">
-                <p>CPU_LOAD: 85%</p>
-                <p>MEM_UTIL: 4.8GB</p>
-                <p class="alert-item success">NETWORK: STABLE</p>
-                <p class="alert-item low-p">LOGGED_USER: [ADMIN]</p>
-                <p class="alert-item high-p">DATE_TIME: <span id="current-time"></span></p>
-            </div>
+                </div>
         </div>
     </div>
     
     <script src="script.js"></script>
     <script>
-        // Simple JS to update time (for the metric panel)
-        function updateTime() {
-            const timeElement = document.getElementById('current-time');
-            if(timeElement) {
-                timeElement.textContent = new Date().toLocaleTimeString('en-US', { hour12: false });
-            }
-        }
-        setInterval(updateTime, 1000);
-        updateTime();
+        // ... (existing updateTime script) ...
     </script>
 </body>
 </html>
