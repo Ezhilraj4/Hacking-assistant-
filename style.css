@@ -1,118 +1,86 @@
 /* --- Global Reset and Typography --- */
-body {
-    background-color: #000;
-    color: #00ff41; /* Neon Green */
-    font-family: 'Consolas', 'Courier New', Courier, monospace;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden; /* Keeps the background from causing scrollbars */
-}
+/* ... (body styles remain the same) ... */
 
-/* --- Layout Grid --- */
+/* --- Layout Grid (MAJOR CHANGE HERE) --- */
 .console-container {
     display: grid;
     gap: 15px;
     width: 95vw;
     max-width: 1500px;
-    /* Defines the 3-column layout: Left (1 part), Center (2 parts), Right (1 part) */
-    grid-template-columns: 1fr 2fr 1fr; 
-    grid-template-rows: auto auto; /* Two rows for top and bottom panels */
+    /* Redefining to 4 columns: Globe (1), Alerts (1), Analysis (2) */
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 2fr 1fr; /* Top row taller than bottom */
+    position: relative; 
+    z-index: 1; 
 }
 
-/* --- Panel Styling (The main visual aesthetic) --- */
-.panel {
-    border: 2px solid #00ff41;
-    padding: 10px;
-    background-color: rgba(0, 50, 0, 0.1); /* Subtle dark green transparency */
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5), inset 0 0 5px rgba(0, 255, 65, 0.2); /* Neon Glow */
-    height: 100%; /* Ensure panels fill the grid space */
-}
-
-/* Mapping panels to the grid */
-.email-panel { grid-area: 1 / 1 / 2 / 2; }
-.analysis-panel { grid-area: 1 / 2 / 2 / 4; }
-.input-area { grid-area: 2 / 1 / 3 / 3; }
-.metrics-panel { grid-area: 2 / 3 / 3 / 4; }
-
-/* --- Headers and Content --- */
-h2 {
-    color: #ff4136; /* Red/Orange for emphasis */
-    border-bottom: 1px solid #00ff41;
-    padding-bottom: 5px;
-    margin-top: 0;
-    text-shadow: 0 0 5px #ff4136;
-}
-
-.content {
-    max-height: 300px; /* Limits the height for a scrollable terminal feel */
-    overflow-y: auto;
-    padding-top: 5px;
-}
-
-/* Styling for the output lines from the JS script */
-.terminal-line { margin: 3px 0; }
-.input { color: #80bfff; } /* A blue for the command line input text */
-.error { color: #ff4136 !important; font-weight: bold; }
-.success { color: #00ff41; }
-.high-p { color: #ff4136; } /* High Priority text */
-.low-p { color: #00ff41; opacity: 0.7; }
-
-/* --- Input Area Styling --- */
-.input-area {
+/* --- Panel Mapping (ADJUSTED) --- */
+.globe-panel { 
+    grid-area: 1 / 1 / 2 / 2; /* Top-Left, spans row 1, col 1 */
     display: flex;
     flex-direction: column;
-    padding: 0;
+    align-items: center;
+    justify-content: space-between;
 }
-.keyboard {
-    height: 150px;
+.email-panel { 
+    grid-area: 1 / 2 / 2 / 3; /* Top-Center-Left, spans row 1, col 2 */
+}
+.analysis-panel { 
+    grid-area: 1 / 3 / 2 / 5; /* Top-Right, spans row 1, columns 3 & 4 */
+}
+.input-area { 
+    grid-area: 2 / 2 / 3 / 4; /* Bottom-Center, spans row 2, columns 2 & 3 */
+}
+.metrics-panel { 
+    grid-area: 2 / 4 / 3 / 5; /* Bottom-Right, spans row 2, col 4 */
+}
+/* Note: The bottom-left column (2/1/3/2) is empty, which can be filled with a file manager or logs */
+
+/* --- Globe Visual Styling (MAJOR CHANGE HERE) --- */
+.globe-container {
     width: 100%;
-    /* Simulates the keyboard visual from the original image */
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200"><rect x="0" y="0" width="800" height="200" fill="%23050505"/><rect x="50" y="50" width="700" height="100" fill="none" stroke="%2300ff41" stroke-width="2"/></svg>') no-repeat center center / contain;
+    height: 70%; /* Takes up most of the panel's height */
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin-bottom: 5px;
-}
-.keyboard-placeholder {
-    color: rgba(0, 255, 65, 0.3);
-    font-size: 0.8em;
-}
-
-.terminal-input {
-    display: flex;
     align-items: center;
-    background-color: #0a0a0a;
+    overflow: hidden; /* Important for the spinning effect */
+}
+
+.globe-visual {
+    width: 150px; 
+    height: 150px; 
+    border-radius: 50%;
+    /* Use the same globe image but contained within the small circle */
+    background-image: url('https://i.imgur.com/e2XjN0s.png'); /* Replace with your actual globe image URL */
+    background-size: 200% auto; /* Zoom in slightly to make it look like it's spinning */
+    background-position: center;
+    opacity: 0.8; 
+    filter: brightness(200%) saturate(150%) hue-rotate(90deg) drop-shadow(0 0 15px #00ff41);
     border: 1px solid #00ff41;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.8);
+    transition: transform 0.3s ease-in-out; /* Smooth transition for location change */
 }
 
-#command-input {
-    flex-grow: 1;
-    background: none;
-    border: none;
-    color: #00ff41;
-    font-family: 'Consolas', 'Courier New', monospace;
-    padding: 10px;
-    outline: none;
-    font-size: 1.1em;
-}
-#command-input::placeholder { 
-    color: rgba(0, 255, 65, 0.5); 
+/* Location Info Styling */
+.location-info {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
 }
 
-#send-command {
-    background-color: #00ff41;
+#change-proxy {
+    background-color: #ff4136; /* Red for the action button */
     color: #000;
     border: none;
-    padding: 10px 15px;
+    padding: 8px 15px;
+    margin-top: 10px;
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.2s;
+    font-family: 'Consolas', monospace;
+}
+#change-proxy:hover {
+    background-color: #cc332a;
 }
 
-#send-command:hover {
-    background-color: #00cc33;
-}
+/* ... (Rest of the CSS styles remain the same) ... */
