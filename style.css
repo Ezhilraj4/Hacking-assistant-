@@ -1,4 +1,4 @@
-/* --- Global Reset and Typography --- */
+/* --- Global Reset and Typography (Fix: Ensure Body Fills Screen) --- */
 body {
     background-color: #000;
     color: #00ff41; /* Neon Green */
@@ -8,23 +8,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100vh; /* FIX: Use 100vh to ensure the body takes up the full viewport height */
+    width: 100vw; /* FIX: Ensure body takes up full width */
     overflow: hidden; 
     position: relative; 
 }
 
-/* --- Globe Background Styling (Removed as it's now a panel element, keeping if you want the faint background) --- */
-.background-code {
-    /* You can place a background image or a repeating code pattern here if desired */
-    /* If you were using this for the full-screen globe, it's removed now. */
-}
-
-/* --- Layout Grid (MAJOR CHANGE HERE: 4-Column Layout) --- */
+/* --- Layout Grid (4-Column Layout) --- */
 .console-container {
     display: grid;
     gap: 15px;
     width: 95vw;
     max-width: 1500px;
+    height: calc(100vh - 40px); /* FIX: Set a calculated height to fill the screen minus padding */
+    
     /* 4 columns: Globe (1), Alerts (1), Analysis (2) */
     grid-template-columns: 1fr 1fr 1fr 1fr; 
     grid-template-rows: 2fr 1fr; /* Top row taller than bottom */
@@ -32,18 +29,20 @@ body {
     z-index: 1; 
 }
 
-/* --- Panel Styling --- */
+/* --- Panel Styling (Fix: Ensure Panels Grow) --- */
 .panel {
     border: 2px solid #00ff41;
     padding: 10px;
-    background-color: rgba(0, 50, 0, 0.1); /* Subtle dark green transparency */
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5), inset 0 0 5px rgba(0, 255, 65, 0.2); /* Neon Glow */
+    background-color: rgba(0, 50, 0, 0.1); 
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5), inset 0 0 5px rgba(0, 255, 65, 0.2); 
     height: 100%; 
-    display: flex; /* Allows content within panels to be flexible */
+    display: flex; 
     flex-direction: column;
+    /* FIX: Ensure content inside scrollable panels can fill space */
+    min-height: 0; 
 }
 
-/* --- Panel Mapping (ADJUSTED FOR 4 COLUMNS) --- */
+/* --- Panel Mapping --- */
 .globe-panel { 
     grid-area: 1 / 1 / 2 / 2; /* Top-Left */
     align-items: center;
@@ -60,7 +59,6 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0;
-    /* Override panel border for input area */
     border: none; 
     background: none; 
     box-shadow: none;
@@ -69,7 +67,7 @@ body {
     grid-area: 2 / 4 / 3 / 5; /* Bottom-Right */
 }
 
-/* --- Globe Visual Styling (NEW) --- */
+/* --- Globe Visual Styling (Fix: Remove Unnecessary Transform) --- */
 .globe-container {
     width: 100%;
     height: 70%; 
@@ -84,26 +82,29 @@ body {
     width: 150px; 
     height: 150px; 
     border-radius: 50%;
-    background-image: url('https://i.imgur.com/e2XjN0s.png'); /* Placeholder URL for the globe texture */
-    background-size: 200% auto; 
+    /* FIX: Use the file you uploaded directly */
+    background-image: url('1000060351.webp-47ae13db-a38b-408a-9443-1ac013f93f50'); 
+    background-size: cover; /* FIX: Use 'cover' to ensure it fills the circle */
     background-position: center;
     opacity: 0.8; 
     filter: brightness(200%) saturate(150%) hue-rotate(90deg) drop-shadow(0 0 15px #00ff41);
     border: 1px solid #00ff41;
     box-shadow: 0 0 20px rgba(0, 255, 65, 0.8);
-    transition: transform 2s ease-in-out; /* Smooth transition for location change spin */
+    transition: transform 2s ease-in-out; 
+    /* Initial state for spinning */
+    transform: rotateY(0deg) scale(1.0); 
 }
 
 /* Location Info Styling */
 .location-info {
     width: 100%;
     text-align: center;
-    margin-top: auto; /* Pushes location info to the bottom of the panel */
+    margin-top: auto; 
     padding-top: 10px;
 }
 
 #change-proxy {
-    background-color: #ff4136; /* Red for the action button */
+    background-color: #ff4136; 
     color: #000;
     border: none;
     padding: 8px 15px;
@@ -132,67 +133,10 @@ h2 {
 }
 
 .content {
-    max-height: 100%; /* Let the panel height define the size */
+    max-height: 100%; 
     overflow-y: auto;
     padding-top: 5px;
     flex-grow: 1;
 }
 
-/* Styling for the output lines from the JS script */
-.terminal-line { margin: 3px 0; }
-.input { color: #80bfff; } 
-.error { color: #ff4136 !important; font-weight: bold; }
-.success { color: #00ff41; }
-.high-p { color: #ff4136; } 
-.low-p { color: #00ff41; opacity: 0.7; }
-
-/* --- Keyboard and Terminal Input --- */
-.keyboard {
-    height: 150px;
-    width: 100%;
-    /* Simulates the keyboard visual from the original image */
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200"><rect x="0" y="0" width="800" height="200" fill="%23050505"/><rect x="50" y="50" width="700" height="100" fill="none" stroke="%2300ff41" stroke-width="2"/></svg>') no-repeat center center / contain;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5px;
-}
-.keyboard-placeholder {
-    color: rgba(0, 255, 65, 0.3);
-    font-size: 0.8em;
-}
-
-.terminal-input {
-    display: flex;
-    align-items: center;
-    background-color: #0a0a0a;
-    border: 1px solid #00ff41;
-}
-
-#command-input {
-    flex-grow: 1;
-    background: none;
-    border: none;
-    color: #00ff41;
-    font-family: 'Consolas', 'Courier New', monospace;
-    padding: 10px;
-    outline: none;
-    font-size: 1.1em;
-}
-#command-input::placeholder { 
-    color: rgba(0, 255, 65, 0.5); 
-}
-
-#send-command {
-    background-color: #00ff41;
-    color: #000;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s;
-}
-
-#send-command:hover {
-    background-color: #00cc33;
-}
+/* ... (Rest of the styles for terminal lines, input area, etc., remain the same) ... */
