@@ -2,7 +2,7 @@ const inputField = document.getElementById('command-input');
 const sendButton = document.getElementById('send-command');
 const outputPanel = document.getElementById('gemini-output'); 
 
-// --- NEW PROXY LOGIC ELEMENTS ---
+// --- PROXY LOGIC ELEMENTS ---
 const ipElement = document.getElementById('current-ip');
 const locationElement = document.getElementById('current-location');
 const proxyButton = document.getElementById('change-proxy');
@@ -20,7 +20,6 @@ let currentIndex = 0;
 
 function changeProxyLocation() {
     // 1. Simulate "Spinning" and Disable Button
-    // The CSS transition property handles the smooth rotation
     globeVisual.style.transform = `rotateY(720deg) scale(1.1)`; 
     proxyButton.disabled = true;
     proxyButton.textContent = 'CONNECTING...';
@@ -52,9 +51,21 @@ proxyButton.addEventListener('click', changeProxyLocation);
 function generateAIResponse(prompt) {
     const command = prompt.toUpperCase().trim();
     
-    // 1. Core Commands
+    // 1. Core Commands and New NN Command
     if (command === 'CLEAR') {
         return { response: '', type: 'SPECIAL' };
+    }
+    if (command === 'CHECK NN') {
+        return {
+            response: `
+                // NEURAL NETWORK DIAGNOSTICS:
+                - Model Name: DeepSpectre-v9
+                - Accuracy Score: 98.7%
+                - Current Task: Zero-day anomaly detection on outbound port 80.
+                - WARNING: Backpropagation is consuming 75% of assigned GPU resources. Recommend scaling back non-critical tasks.
+            `,
+            type: 'ANALYSIS'
+        };
     }
     if (command === 'HELP') {
         return { 
@@ -62,15 +73,15 @@ function generateAIResponse(prompt) {
                 // Available AI-Trained Commands:
                 - SCAN [TARGET]: Analyze a system component (e.g., SCAN FIREWALL).
                 - REPORT [TOPIC]: Draft an analysis summary (e.g., REPORT CRYPTO).
+                - CHECK NN: Run diagnostics on the Neural Network.
                 - HELP: Display available commands.
                 - CLEAR: Clear the console screen.
-                - INITIATE SELF-DESTRUCT: (Warning: Highly unstable function.)
             `,
             type: 'INFO'
         };
     }
 
-    // 2. Thematic Analysis (Trained Responses based on keywords)
+    // 2. Thematic Analysis (Trained Responses)
     if (command.startsWith('SCAN')) {
         const target = command.substring(5).trim();
         if (target === 'FIREWALL') {
@@ -116,7 +127,6 @@ function generateAIResponse(prompt) {
         return {
             response: `
                 // WARNING: Self-Destruct Sequence **DENIED** (Code 404: Protocol not found). 
-                // A helpful AI is not permitted to destroy its operational environment. Please try a different command.
             `,
             type: 'ERROR'
         };
@@ -175,16 +185,14 @@ function handleCommand() {
 
     const { response, type } = generateAIResponse(prompt);
 
-    // Handle special CLEAR command
     if (type === 'SPECIAL' && response === '') {
         outputPanel.innerHTML = '';
         return;
     }
 
-    // Display the simulated AI response
     setTimeout(() => {
         displayOutput(response, type);
-    }, 700); // Simulate processing time
+    }, 700); 
 }
 
 // Event Listeners
