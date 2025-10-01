@@ -6,7 +6,7 @@ const outputPanel = document.getElementById('gemini-output');
 const ipElement = document.getElementById('current-ip');
 const locationElement = document.getElementById('current-location');
 const proxyButton = document.getElementById('change-proxy');
-const globeVisual = document.querySelector('.globe-visual');
+const globeVisual = document.querySelector('.globe-visual'); // Now a matrix globe
 
 const PROXY_LOCATIONS = [
     { ip: '172.67.142.15', location: 'Sydney, Australia' },
@@ -20,7 +20,8 @@ let currentIndex = 0;
 
 function changeProxyLocation() {
     // 1. Simulate "Spinning" and Disable Button
-    globeVisual.style.transform = `rotateY(720deg) scale(1.1)`; 
+    // Combined with CSS 'globeRotate' animation for a constant subtle spin
+    globeVisual.style.transform = `rotateY(720deg) scale(1.1)`; // Extra spin for location change
     proxyButton.disabled = true;
     proxyButton.textContent = 'CONNECTING...';
     displayOutput('// INITIATING PROXY SWAP: ENCRYPTING TUNNEL...', 'INFO');
@@ -33,7 +34,7 @@ function changeProxyLocation() {
     setTimeout(() => {
         ipElement.textContent = newLocation.ip;
         locationElement.textContent = newLocation.location;
-        globeVisual.style.transform = `rotateY(0deg) scale(1.0)`; // Stop spin, reset size
+        globeVisual.style.transform = `rotateY(0deg) scale(1.0)`; // Reset extra spin, CSS animation continues
         
         displayOutput(`// PROXY CONNECTED: IP ${newLocation.ip} (${newLocation.location})`, 'SUCCESS');
         
@@ -59,8 +60,8 @@ function generateAIResponse(prompt) {
         return {
             response: `
                 // NEURAL NETWORK DIAGNOSTICS:
-                - Model Name: DeepSpectre-v9
-                - Accuracy Score: 98.7%
+                - Model Name: DeepSpectre-v9 (Primary)
+                - Accuracy Score: 98.7% (Stable)
                 - Current Task: Zero-day anomaly detection on outbound port 80.
                 - WARNING: Backpropagation is consuming 75% of assigned GPU resources. Recommend scaling back non-critical tasks.
             `,
